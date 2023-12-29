@@ -1,6 +1,7 @@
 import ephem
 from datetime import datetime
 from utils.astrology_utils import get_zodiac_sign, get_chinese_zodiac
+from utils.terminal_helpers import clear_terminal
 
 # Calculate Natal Chart
 def generate_natal_chart(birth_date, birth_time, latitude, longitude):
@@ -13,7 +14,6 @@ def generate_natal_chart(birth_date, birth_time, latitude, longitude):
 
     # Set the observer's date and time
     observer.date = birth_datetime
-    print(observer.date)
 
     # Calculate and print planetary positions
     planets = [
@@ -28,8 +28,10 @@ def generate_natal_chart(birth_date, birth_time, latitude, longitude):
         ephem.Neptune(),
         ephem.Pluto(),
     ]
+    
+    clear_terminal()
 
-    print("Planetary positions:")
+    print("\nPlanetary positions:")
     for planet in planets:
         planet.compute(observer)
 
