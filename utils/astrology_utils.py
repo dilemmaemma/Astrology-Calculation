@@ -1,8 +1,9 @@
 from decimal import Decimal, ROUND_HALF_UP
 
-# Calculate Western Zodiac Sign
-def get_zodiac_sign(degrees):
-    # Define zodiac sign ranges (degrees)
+# Calculate Western Zodiac Sign Degree
+def calculate_zodiac_sign(degree):
+    degree = degree % 360
+    
     sign_ranges = [
         (0, 30), (30, 60), (60, 90), (90, 120),
         (120, 150), (150, 180), (180, 210), (210, 240),
@@ -10,10 +11,21 @@ def get_zodiac_sign(degrees):
     ]
 
     for i, (start, end) in enumerate(sign_ranges, start=1):
-        if start <= degrees < end:
-            return i  # Return the zodiac sign number (1 to 12)
+        if start <= degree < end:
+            return i
 
-    return None  # Return None if no match is found
+    return None
+
+# Calculate Western Zodiac Sign
+def get_zodiac_sign(degree):
+    sign_mapping = {
+        1: 'Aries', 2: 'Taurus', 3: 'Gemini', 4: 'Cancer',
+        5: 'Leo', 6: 'Virgo', 7: 'Libra', 8: 'Scorpio',
+        9: 'Sagittarius', 10: 'Capricorn', 11: 'Aquarius', 12: 'Pisces'
+    }
+    
+    sign_number = calculate_zodiac_sign(degree)
+    return sign_mapping.get(sign_number, 'Unknown')
 
 # Calculate Chinese Zodiac sign
 def get_chinese_zodiac(year):
