@@ -31,13 +31,13 @@ def generate_natal_chart(birth_date, birth_time, latitude, longitude):
     
     clear_terminal()
 
-    print("\nPlanetary positions:")
+    print("Planetary positions:")
     for planet in planets:
         planet.compute(observer)
 
         # Get the zodiac sign using the constellation function
-        _, constellation_abbrev = ephem.constellation(planet)
-        zodiac_sign = get_zodiac_sign(constellation_abbrev)
+        constellation_abbrev = ephem.constellation(planet)[1]
+        zodiac_sign = get_zodiac_sign(planet.az % 360)
         print(f"{planet.name}: {planet.alt}° altitude, {planet.az}° azimuth")
         print(f"Zodiac Sign - {zodiac_sign}")
 
@@ -59,8 +59,8 @@ def generate_natal_chart(birth_date, birth_time, latitude, longitude):
             planet.compute(observer)
 
             # Get the zodiac sign using the constellation function
-            _, constellation_abbrev = ephem.constellation(planet)
-            zodiac_sign = get_zodiac_sign(constellation_abbrev)
+            constellation_abbrev = ephem.constellation(planet)[1]
+            zodiac_sign = get_zodiac_sign(constellation_abbrev) if constellation_abbrev else 'Unknown'
             print(f"{planet.name}: {planet.alt}° altitude, {planet.az}° azimuth")
             print(f"Zodiac Sign - {zodiac_sign}")
 
