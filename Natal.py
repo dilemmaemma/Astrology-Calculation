@@ -3,7 +3,7 @@ from datetime import datetime
 from decimal import Decimal, ROUND_HALF_UP
 import ephem
 
-# Calculate Zodiac Sign
+# Calculate Western Zodiac sign
 def calculate_zodiac_sign(azimuth):
     # Define azimuth ranges for each zodiac sign
     sign_ranges = [
@@ -18,6 +18,7 @@ def calculate_zodiac_sign(azimuth):
 
     return None  # Return None if no match is found
 
+# Assign Western Zodiac sign a name
 def get_zodiac_sign(constellation):
     # Mapping of constellation abbreviations to zodiac signs
     sign_mapping = {
@@ -28,6 +29,7 @@ def get_zodiac_sign(constellation):
     
     return sign_mapping.get(constellation, 'Unknown')
 
+# Calculate Chinese Zodiac sign
 def get_chinese_zodiac(year):
     
     year = Decimal(year)
