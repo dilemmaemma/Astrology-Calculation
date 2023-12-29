@@ -1,4 +1,6 @@
 from geopy.geocoders import Nominatim
+from datetime import datetime
+from decimal import Decimal, ROUND_HALF_UP
 import ephem
 
 # Calculate Zodiac Sign
@@ -27,7 +29,12 @@ def get_zodiac_sign(constellation):
     return sign_mapping.get(constellation, 'Unknown')
 
 def get_chinese_zodiac(year):
-    year = int(year)
+    
+    year = Decimal(year)
+    
+    # Calculate the remainder with precision
+    remainder = (year % Decimal(12)).quantize(Decimal('0.000'), rounding=ROUND_HALF_UP)
+    
     # Define the Chinese zodiac signs
     zodiac_signs = [
         'Monkey', 
@@ -43,15 +50,12 @@ def get_chinese_zodiac(year):
         'Horse', 
         'Sheep'
     ]
-    remainder = round((year % 12) % 1, 3) # Round the three decimal remainder
-    print(remainder)
-    print(year)
-    zodiac_index = int(remainder * 12) # Take the number to the left of the decimal
-    return zodiac_signs[zodiac_index]
+    return zodiac_signs[round(remainder)]
 
 # Calculate Natal Chart
 def generate_natal_chart(birth_date, birth_time, latitude, longitude):
-    birth_datetime = f"{birth_date} {birth_time}"
+    birth_datetime_str = f"{birth_date} {birth_time}"
+    birth_datetime = datetime.strptime(birth_datetime_str, '%m-%d-%Y %H:%M:%S')
 
     # Create an observer at the specified location
     observer = ephem.Observer()
@@ -59,6 +63,7 @@ def generate_natal_chart(birth_date, birth_time, latitude, longitude):
 
     # Set the observer's date and time
     observer.date = birth_datetime
+    print(observer.date)
 
     # Calculate and print planetary positions
     planets = [
@@ -83,8 +88,7 @@ def generate_natal_chart(birth_date, birth_time, latitude, longitude):
         zodiac_sign = get_zodiac_sign(constellation_abbrev)
         print(f"{planet.name}: {planet.alt}° altitude, {planet.az}° azimuth")
         print(f"Zodiac Sign - {zodiac_sign}")
-    chinese_zodiac = get_chinese_zodiac(observer.date.datetime().year)
-    print(f"Chinese Zodiac - {chinese_zodiac}")
+
     # Calculate and print additional celestial bodies (if supported by ephem)
     try:
         additional_planets = [
@@ -111,6 +115,11 @@ def generate_natal_chart(birth_date, birth_time, latitude, longitude):
     except Exception as e:
         print(f"Error: {e}")
         print("Some celestial bodies are not supported by ephem.")
+        
+    # Use .triple() to get year, month, and day as a tuple
+    year = observer.date.triple()[0]
+    chinese_zodiac = get_chinese_zodiac(year)
+    print(f"Chinese Zodiac - {chinese_zodiac}")
         
 # Find Longitude and Latitude of Birth Place
 def get_lat_long(location):
