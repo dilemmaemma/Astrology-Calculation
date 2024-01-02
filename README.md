@@ -47,7 +47,10 @@ Extras:
 # Packages used
 - Immanuel
   - Creator: theriftlab
+  - <a href='https://github.com/theriftlab/immanuel-python/tree/v1.1.1'>Link</a>
 - Ephem
   - Creator: Brandon Rhodes
+  - <a href='https://github.com/galaxyproject/ephemeris'>Link</a>
 - Geopy.geocoders
   - Creator: Andrew Sokolov
+  - <a href='https://github.com/geopy/geopy'>Link</a>
