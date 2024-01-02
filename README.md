@@ -15,6 +15,7 @@ Planets included:
 - Uranus
 - Neptune
 - Pluto
+
 Asteroids included:
 - Ceres
 - Chiron
@@ -23,14 +24,30 @@ Asteroids included:
 - Pallas
 - Pholus
 - Vesta
-Angles/points included:
+  
+Angles included:
 - Ascendent
 - Descendent
 - Midheaven
 - Imum Coeli
+
+Extras:
+- Chinese Zodiac
+- Part of Fortune
+- True Lilith
+- True North Node
+- True South Node
 - Vertex
 
 ## Needed to use
 - Birth time
 - Birth location
 - Birth day, month, and year
+
+# Packages used
+- Immanuel
+  - Creator: theriftlab
+- Ephem
+  - Creator: Brandon Rhodes
+- Geopy.geocoders
+  - Creator: Andrew Sokolov
